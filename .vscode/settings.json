@@ -16,5 +16,7 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.color": "#ff3d00",
-    "search.searchEditor.reusePriorSearchConfiguration": true
+    "search.searchEditor.reusePriorSearchConfiguration": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
 }
