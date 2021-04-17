@@ -2,19 +2,22 @@ export class AppareilService {
   /* La liste des appareils: */
   appareils = [
     {
+      id: 1,
       name: 'Machine à laver',
       status: 'éteint',
     },
     {
+      id: 2,
       name: 'Frigo',
       status: 'allumé',
     },
     {
+      id: 3,
       name: 'Ordinateur',
       status: 'éteint',
     },
   ];
-  // Méthodes "allumerTout" et "eteindreTout"
+  /* Méthodes "allumerTout" et "eteindreTout" */
   switchOnAll() {
     for (let appareil of this.appareils) {
       appareil.status = 'allumé';
@@ -26,12 +29,19 @@ export class AppareilService {
       appareil.status = 'éteint';
     }
   }
-  // Méthodes "allumerUn" et "eteindreUn"
+  /* Méthodes "allumerUn" et "eteindreUn" */
   switchOnOne(i: number) {
     this.appareils[i].status = 'allumé';
   }
 
   switchOffOne(i: number) {
     this.appareils[i].status = 'éteint';
+  }
+  /* Méthode permettant d'obtenir un appareil par son "id" */
+  getAppareilById(id: number) {
+    const appareil = this.appareils.find((s) => {
+      return s.id === id;
+    });
+    return appareil;
   }
 }

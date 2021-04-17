@@ -7,17 +7,23 @@ import { AppareilService } from '../services/appareil.services';
   styleUrls: ['./appareil.component.scss'],
 })
 export class AppareilComponent implements OnInit {
+
   @Input() appareilName: string;
 
   @Input() appareilStatus: string;
   /* On va rajouter un index "i" pour le localiser dans la liste et le bindé dans le template parent app.component.html */
   @Input() index: number;
 
-  constructor(private appareilService: AppareilService) {}
+  /* Création de l'id unique pour le routage des appareils */
+  @Input() id: number;
+
+  constructor(private appareilService: AppareilService) {
+
+  }
 
   ngOnInit(): void {}
 
-  /* Méthodes getStatus(), getColor() */
+  /* Méthode notifiant le statut => Methode appliquant la couleur */
   getStatus() {
     return this.appareilStatus;
   }
@@ -30,7 +36,7 @@ export class AppareilComponent implements OnInit {
       }
     }
   }
-  /* Méthode allumé<-->éteint */
+  /* Méthode de basculement allumé<-->éteint */
   onSwitch() {
     if (this.appareilStatus === 'allumé') {
       this.appareilService.switchOffOne(this.index);
