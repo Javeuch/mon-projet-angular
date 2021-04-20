@@ -18,29 +18,29 @@ const appRoutes: Routes = [
   {
     path: 'appareils',
     canActivate: [AuthGuard],
-    component: AppareilViewComponent
+    component: AppareilViewComponent,
   },
   {
     path: 'appareils/:id',
     canActivate: [AuthGuard],
-    component: SingleAppareilComponent
+    component: SingleAppareilComponent,
   },
   {
     path: 'auth',
-    component: AuthComponent
+    component: AuthComponent,
   },
   {
     path: '',
-    component: AppareilViewComponent
+    component: AppareilViewComponent,
   },
   {
     path: 'not-found',
-    component: FourOhFourComponent
+    component: FourOhFourComponent,
   },
   {
     path: '**',
-    redirectTo: 'not-found'
-  }
+    redirectTo: 'not-found',
+  },
 ];
 
 @NgModule({
@@ -52,8 +52,16 @@ const appRoutes: Routes = [
     SingleAppareilComponent,
     FourOhFourComponent,
   ],
-  imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)],
-  providers: [AppareilService, AuthService, AuthGuard],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
+  ],
+  providers: [
+    AppareilService,
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
