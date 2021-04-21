@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AppareilService } from '../services/appareil.services';
 
 @Component({
@@ -6,18 +7,21 @@ import { AppareilService } from '../services/appareil.services';
   templateUrl: './appareil-view.component.html',
   styleUrls: ['./appareil-view.component.scss'],
 })
-export class AppareilViewComponent implements OnInit {
-  // les attributs
+export class AppareilViewComponent implements OnInit, OnDestroy {
+  /* les attributs--------------------------------------------*/
   isAuth = false;
+
   lastUpdate = new Promise((resolve, reject) => {
     const date = new Date();
     setTimeout(() => {
       resolve(date);
     }, 2000);
   });
-  /*tableau déplacé dans le service.ts
-    on garde juste la décl. du tableau */
+  // tableau déplacé dans le service.ts, on garde juste la décl. du tableau
   appareils: any[];
+  // On déclare une souscription:
+  appareilSubscription: Subscription;
+  /*------------------------------------------------------------*/
 
   constructor(private appareilService: AppareilService) {
     setTimeout(() => {
@@ -25,13 +29,17 @@ export class AppareilViewComponent implements OnInit {
     }, 4000);
   }
 
-  /* Méthode s'exécutant à la création du Component et      après  le constructor
+  /* Méthode s'exécutant à la création du Component et après  le constructor
   (on la met avant les autres méthodes de la classe) */
   ngOnInit() {
-    this.appareils = this.appareilService.appareils;
+    this.appareilSubscription = this.appareilService.appareilsSubject.subscribe(
+      (appareils: any[]) => {
+        this.appareils = appareils;
+      }
+    );
+    this.appareilService.emitAppareilSubject();
   }
-
-  /* Ici le reste des méthodes */
+  /* Les méthodes allumer et éteindre */
   onAllumer() {
     this.appareilService.switchOnAll();
   }
@@ -41,5 +49,9 @@ export class AppareilViewComponent implements OnInit {
     } else {
       return null;
     }
+  }
+/* Méthode de destruction de la souscription */
+  ngOnDestroy() {
+    this.appareilSubscription.unsubscribe();
   }
 }
