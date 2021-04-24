@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppareilComponent } from './appareil/appareil.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppareilService } from './services/appareil.services';
 import { AuthComponent } from './auth/auth.component';
 import { AppareilViewComponent } from './appareil-view/appareil-view.component';
@@ -12,6 +12,8 @@ import { AuthService } from './services/auth.service';
 import { SingleAppareilComponent } from './single-appareil/single-appareil.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { AuthGuard } from './services/auth-guard.service';
+import { UserService } from './services/user.service';
+import { UserListComponent } from './user-list/user-list.component';
 
 /* appRoutes: constante de routage type Routes --> tableau */
 const appRoutes: Routes = [
@@ -30,6 +32,10 @@ const appRoutes: Routes = [
     component: AuthComponent,
   },
   {
+    path: 'users',
+    component: UserListComponent
+  },
+  {
     path: '',
     component: AppareilViewComponent,
   },
@@ -44,6 +50,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
+
   declarations: [
     AppComponent,
     AppareilComponent,
@@ -51,17 +58,23 @@ const appRoutes: Routes = [
     AppareilViewComponent,
     SingleAppareilComponent,
     FourOhFourComponent,
+    UserListComponent,
   ],
+
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
+
   providers: [
     AppareilService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

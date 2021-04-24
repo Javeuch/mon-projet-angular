@@ -1,0 +1,20 @@
+<ul class="list-group">
+
+  <!--   On parcourt la liste des utilisateurs -->
+  <li class="list-group-item" *ngFor="let user of users">
+
+    <!--    on affiche le nom et le prénom -->
+    <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+
+    <!--  On affiche l'email -->
+    <p>{{ user.email }}</p>
+
+    <!--  On affiche les préférences s'il y en a  avec *ngIf et si plusieurs on parcourt la liste avec *ngFor -->
+    <p>Cette persone préfère le {{ user.drinkPreference }}</p>
+    <p *ngIf="user.hobbies && user.hobbies.length > 0">
+      Cette personne a des hobbies !
+      <span *ngFor="let hobby of user.hobbies">{{ hobby }} - </span>
+    </p>
+  </li>
+
+</ul>
