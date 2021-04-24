@@ -14,6 +14,7 @@ import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { UserService } from './services/user.service';
 import { UserListComponent } from './user-list/user-list.component';
+import { NewUserComponent } from './new-user/new-user.component';
 
 /* appRoutes: constante de routage type Routes --> tableau */
 const appRoutes: Routes = [
@@ -33,7 +34,11 @@ const appRoutes: Routes = [
   },
   {
     path: 'users',
-    component: UserListComponent
+    component: UserListComponent,
+  },
+  {
+    path: 'new-user',
+    component: NewUserComponent
   },
   {
     path: '',
@@ -59,6 +64,7 @@ const appRoutes: Routes = [
     SingleAppareilComponent,
     FourOhFourComponent,
     UserListComponent,
+    NewUserComponent,
   ],
 
   imports: [
