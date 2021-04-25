@@ -1,3 +1,6 @@
+<!--   Lien vers nouvel utilisateur -->
+  <a routerLink="/new-user">Nouvel utilisateur</a>
+
 <ul class="list-group">
 
   <!--   On parcourt la liste des utilisateurs -->
@@ -12,12 +15,9 @@
     <!--  On affiche les préférences s'il y en a  avec *ngIf et si plusieurs on parcourt la liste avec *ngFor -->
     <p>Cette persone préfère le {{ user.drinkPreference }}</p>
     <p *ngIf="user.hobbies && user.hobbies.length > 0">
-      Cette personne a des hobbies !
-      <span *ngFor="let hobby of user.hobbies">{{ hobby }} - </span>
+      Cette personne a des hobbies :
+      <span *ngFor="let hobby of user.hobbies">{{ hobby }} --- </span>
     </p>
   </li>
-
-<!--   Lien vers nouvel utilisateur -->
-  <a routerLink="/new-user">Nouvel utilisateur</a>
 
 </ul>

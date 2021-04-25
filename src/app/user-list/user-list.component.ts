@@ -10,15 +10,7 @@ import { UserService } from '../services/user.service';
 })
 export class UserListComponent implements OnInit, OnDestroy {
   /* Les attributs */
-  users: User[]= [
-    new User(
-      'Will',
-      'Alexander',
-      'will@will.com',
-      'jus d\'orange',
-      ['coder', 'boire du café']
-    )
-  ];
+  users: User[];
   userSubscription: Subscription;
 
   /* Injection du service correspondant */

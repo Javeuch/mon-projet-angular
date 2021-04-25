@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+ import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../models/User.model';
 import { UserService } from '../services/user.service';
-
 
 @Component({
   selector: 'app-new-user',
@@ -11,7 +10,6 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./new-user.component.scss'],
 })
 export class NewUserComponent implements OnInit {
-
   /* Création d'un objet type FormGroup */
   userForm: FormGroup;
 
@@ -25,14 +23,18 @@ export class NewUserComponent implements OnInit {
     this.initForm();
   }
 
-  /* Méthode d'initialisation du formulaire avec méthode group() de FormBuilder */
+  /* Méthode d'initialisation du formulaire avec méthode group() de FormBuilder
+  On ajote les Validators pour vérifier les données */
   initForm() {
-    this.userForm = this.formBuilder.group({
-      firstName: '',
-      lastName: '',
-      email: '',
-      drinkPreference: '',
-    });
+    this.userForm = this.formBuilder.group(
+      {
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      drinkPreference: ['', Validators.required],
+      hobbies: this.formBuilder.array([])
+      }
+    );
   }
 
   /* Méthode de soumission du formulaire : récupère value et crée un nouvel objet
@@ -44,9 +46,21 @@ export class NewUserComponent implements OnInit {
       formValue['firstName'],
       formValue['lastName'],
       formValue['email'],
-      formValue['drinkPreference']
+      formValue['drinkPreference'],
+      formValue['hobbies'] ? formValue['hobbies'] : []
     );
     this.userService.addUser(newUser);
     this.router.navigate(['/users']);
   }
+
+  /* méthode qui retourne  hobbies  par la méthode  get()  sous forme de  FormArray */
+  getHobbies(): FormArray {
+    return this.userForm.get('hobbies') as FormArray;
+  }
+
+  /* méthode qui permet d'ajouter un  FormControl  à  hobbies */
+  onAddHobby() {
+    const newHobbyControl = this.formBuilder.control(null, Validators.required);
+    this.getHobbies().push(newHobbyControl);
+}
 }

@@ -3,7 +3,14 @@ import { User } from "../models/User.model";
 
 export class UserService {
   /*array privé d'objets de type personnalisé  User et un Subject */
-  private users: User[];
+  private users: User[] = [
+    new User(
+      'Will',
+      'Alexander',
+      'will@will.com',
+      'jus d\'orange',
+      ['coder', 'boire du café'])
+];
   userSubject = new Subject<User[]>();
 
   /* méthode  emitUsers()  déclenche ce Subject  */
