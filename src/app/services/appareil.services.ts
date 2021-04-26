@@ -1,12 +1,19 @@
 import { Subject } from "rxjs";
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class AppareilService {
+
   /* Création d'un subject */
   appareilsSubject = new Subject<any[]>();
 
   /* La liste des appareils: */
   // avec subject on met en private */
-  private appareils = [
+  private appareils: any[];
+
+  /*-------importé depuis BDD------------------
+  [
     {
       id: 1,
       name: 'Machine à laver',
@@ -23,6 +30,11 @@ export class AppareilService {
       status: 'éteint',
     },
   ];
+-----------------------------------------------*/
+
+  /* on ajoute un constructor pour l'injection de HttpClient */
+  constructor(private httpClient: HttpClient) { }
+
   /* Méthodes "allumerTout" et "eteindreTout" */
   switchOnAll() {
     for (let appareil of this.appareils) {
@@ -39,6 +51,7 @@ export class AppareilService {
     // méthode emettre
     this.emitAppareilSubject();
   }
+
   /* Méthodes "allumerUn" et "eteindreUn" */
   switchOnOne(i: number) {
     this.appareils[i].status = 'allumé';
@@ -51,6 +64,7 @@ export class AppareilService {
     // méthode emettre
     this.emitAppareilSubject();
   }
+
   /* Méthode permettant d'obtenir un appareil par son "id" */
   getAppareilById(id: number) {
     const appareil = this.appareils.find((s) => {
@@ -58,8 +72,35 @@ export class AppareilService {
     });
     return appareil;
   }
+
   /* Création de la méthode d'émission du Subject */
   emitAppareilSubject() {
     this.appareilsSubject.next(this.appareils.slice());
+  }
+
+  /* Création de la méthode de sauvegarde sur le serveur Http */
+  saveAppareilsToServer() {
+    this.httpClient.put('https://httpclient-demo-cc67f-default-rtdb.europe-west1.firebasedatabase.app/appareils.json', this.appareils)
+      .subscribe(
+        () => {
+          console.log('Enregistrement terminé !');
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+  }
+
+  /* Création de la méthode de récupération des données du serveur Firebase */
+  getAppareilsFromServer() {
+    this.httpClient.get<any[]>('https://httpclient-demo-cc67f-default-rtdb.europe-west1.firebasedatabase.app/appareils.json').subscribe(
+        (response) => {
+          this.appareils = response;
+          this.emitAppareilSubject();
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
   }
 }

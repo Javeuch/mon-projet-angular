@@ -50,8 +50,18 @@ export class AppareilViewComponent implements OnInit, OnDestroy {
       return null;
     }
   }
-/* Méthode de destruction de la souscription */
+  /* Méthode de destruction de la souscription */
   ngOnDestroy() {
     this.appareilSubscription.unsubscribe();
+  }
+
+  /* Méthode de sauvegarde vers le serveur dans la BDD */
+  onSave() {
+    this.appareilService.saveAppareilsToServer();
+  }
+
+  /* Méthode de récupération des données sur le serveur dans la BDD */
+  onFetch() {
+    this.appareilService.getAppareilsFromServer();
   }
 }
