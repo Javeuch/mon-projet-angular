@@ -35,6 +35,20 @@ export class AppareilService {
   /* on ajoute un constructor pour l'injection de HttpClient */
   constructor(private httpClient: HttpClient) { }
 
+  /* méthode qui génèrere le nouvel appareil */
+  addAppareil(name: string, status: string) {
+    const appareilObject = {
+      id: 0,
+      name: '',
+      status: ''
+    };
+    appareilObject.name = name;
+    appareilObject.status = status;
+    appareilObject.id = this.appareils[(this.appareils.length - 1)].id + 1;
+    this.appareils.push(appareilObject);
+    this.emitAppareilSubject();
+  }
+
   /* Méthodes "allumerTout" et "eteindreTout" */
   switchOnAll() {
     for (let appareil of this.appareils) {

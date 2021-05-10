@@ -36,6 +36,11 @@ const appRoutes: Routes = [
     component: AuthComponent,
   },
   {
+    path: 'edit',
+    canActivate: [AuthGuard],
+    component: EditAppareilComponent,
+  },
+  {
     path: 'users',
     component: UserListComponent,
   },
