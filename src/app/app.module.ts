@@ -17,6 +17,7 @@ import { UserService } from './services/user.service';
 import { UserListComponent } from './user-list/user-list.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { from } from 'rxjs';
+import { EditAppareilComponent } from './edit-appareil/edit-appareil.component';
 
 /* appRoutes: constante de routage type Routes --> tableau */
 const appRoutes: Routes = [
@@ -67,6 +68,7 @@ const appRoutes: Routes = [
     FourOhFourComponent,
     UserListComponent,
     NewUserComponent,
+    EditAppareilComponent,
   ],
 
   imports: [

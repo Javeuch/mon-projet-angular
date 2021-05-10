@@ -92,7 +92,7 @@ export class AppareilService {
   }
 
   /* Création de la méthode de récupération des données du serveur Firebase */
-  getAppareilsFromServer() {
+    getAppareilsFromServer() {
     this.httpClient.get<any[]>('https://httpclient-demo-cc67f-default-rtdb.europe-west1.firebasedatabase.app/appareils.json').subscribe(
         (response) => {
           this.appareils = response;
